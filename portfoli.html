@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anukalp | Portfolio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f8fa;
+      color: #333;
+      line-height: 1.6;
+      user-select: none;
+      cursor: default;
+    }
+    header {
+      height: 70vh;
+      background: linear-gradient(to right, #003366, #0059b3);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    header img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 6px solid white;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.4s;
+    }
+    header img:hover {
+      transform: scale(1.05);
+    }
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.1em;
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+    .nav-buttons a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #ffc107;
+      color: #002b5c;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+    .nav-buttons a:hover {
+      background: #ffb300;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    section h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #004080;
+      border-left: 5px solid #004080;
+      padding-left: 10px;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      perspective: 1000px;
+    }
+    .project {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+      cursor: pointer;
+    }
+    .project:hover {
+      transform: rotateY(180deg);
+    }
+    .project-front, .project-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .project-front {
+      background: #ffffff;
+    }
+    .project-back {
+      background: #004080;
+      color: white;
+      transform: rotateY(180deg);
+    }
+    .resume-download {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .resume-download a {
+      background: #004080;
+      color: #fff;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .resume-download a:hover {
+      background: #002b5c;
+    }
+    .contact-links {
+      text-align: center;
+    }
+    .contact-links p {
+      margin: 8px 0;
+    }
+    .contact-links a {
+      color: #004080;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .contact-links a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #002b5c;
+      color: white;
+    }
+  </style>
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+      if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && ['I','J','C'].includes(event.key))) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <img src="https://raw.githubusercontent.com/anukalpthakur/portfolio-assests/main/myimg.jpg" alt="Anukalp Profile">
+    <h1>Anukalp Kumar Thakur</h1>
+    <p>Full-Stack Developer | AI Enthusiast | MCA Graduate</p>
+    <div class="nav-buttons">
+      <a href="#about">About Me</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I’m a detail-oriented software developer with strong foundations in Python, Java, and SQL. I’ve built systems ranging from facial recognition ERP apps to AI-powered tumor detection models, and I love turning ideas into scalable code. Passionate about innovation, I aim to contribute to high-impact projects in the tech industry.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project" onclick="window.open('https://github.com/anukalpthakur/attendace_management','_blank')">
+        <div class="project-front">
+          <h3>Face Recognition ERP</h3>
+        </div>
+        <div class="project-back">
+          <p>Biometric attendance system with facial recognition login, OTP registration, email alerts & analytics.</p>
+        </div>
+      </div>
+      <div class="project" onclick="window.open('https://github.com/anukalpthakur/brain_tumor_detection','_blank')">
+        <div class="project-front">
+          <h3>Brain Tumor Detection</h3>
+        </div>
+        <div class="project-back">
+          <p>CNN-based AI model to detect brain tumors in MRI scans with high accuracy and classification.</p>
+        </div>
+      </div>
+      <div class="project" onclick="window.open('https://github.com/anukalpthakur/school_management_using_python','_blank')">
+        <div class="project-front">
+          <h3>School Management System</h3>
+        </div>
+        <div class="project-back">
+          <p>Desktop GUI for managing school operations: students, teachers, attendance & fees.</p>
+        </div>
+      </div>
+      <div class="project" onclick="window.open('https://github.com/anukalpthakur/vechile-speed-detection-and-counting-incoming-and-outgoing-vechiles-using-IOT','_blank')">
+        <div class="project-front">
+          <h3>Vehicle Speed Detection</h3>
+        </div>
+        <div class="project-back">
+          <p>Ultrasonic sensor and C++ based system to detect and count vehicle speed and flow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>Languages: Python, Java, C++, SQL</li>
+      <li>Web: HTML, CSS, JavaScript</li>
+      <li>Tools: VS Code, PyCharm, MySQL, Jupyter, Android Studio</li>
+      <li>Soft Skills: Teamwork, Communication, Leadership</li>
+    </ul>
+  </section>
+
+  <section id="resume" class="resume-download">
+    <h2>Resume</h2>
+    <a href="https://raw.githubusercontent.com/anukalpthakur/portfolio-assests/main/resume_anukalp.pdf" download>Download My Resume</a>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-links">
+      <p><strong>Email:</strong> <a href="mailto:thakuranukalp848@outlook.com">thakuranukalp848@outlook.com</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+917301913950">+91-7301913950</a></p>
+      <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/anukalp" target="_blank">linkedin.com/in/anukalp</a></p>
+      <p><strong>GitHub:</strong> <a href="https://github.com/anukalpthakur" target="_blank">github.com/anukalpthakur</a></p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Anukalp Kumar Thakur | Built with 💙 HTML, CSS, and Passion
+  </footer>
+</body>
+</html>
