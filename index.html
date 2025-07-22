@@ -228,6 +228,18 @@
   </div>
   <header>
     <img src="https://raw.githubusercontent.com/anukalpthakur/portfolio-assests/main/myimg.jpg" alt="Anukalp Profile" onclick="showImage()">
+    <div>
+  <p>Visitors: <span id="visitor-count">Loading...</span></p>
+</div>
+
+<script>
+  fetch('https://api.countapi.xyz/update/anukalp/saiyara/?amount=1')
+    .then(res => res.json())
+    .then(res => {
+      document.getElementById('visitor-count').innerText = res.value;
+    });
+</script>
+
     <h1>Anukalp Kumar Thakur</h1>
     <p>Full-Stack Developer | AI Enthusiast</p>
     <div class="nav-buttons">
