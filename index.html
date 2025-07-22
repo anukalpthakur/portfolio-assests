@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Anukalp | Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -19,6 +19,10 @@
       line-height: 1.6;
       user-select: none;
       cursor: default;
+    }
+    a, img {
+      user-drag: none;
+      -webkit-user-drag: none;
     }
     header {
       min-height: 70vh;
@@ -40,6 +44,7 @@
       margin-bottom: 20px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
       transition: transform 0.4s;
+      cursor: pointer;
     }
     header img:hover {
       transform: scale(1.05);
@@ -153,32 +158,76 @@
       background: #002b5c;
       color: white;
     }
-    @media (max-width: 600px) {
-      header img {
-        width: 120px;
-        height: 120px;
-      }
-      header h1 {
-        font-size: 1.5em;
-      }
-      .nav-buttons a {
-        padding: 8px 16px;
-        margin: 6px;
-      }
+    form input, form select, form button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1em;
+    }
+    form .phone-group {
+      display: flex;
+      gap: 10px;
+    }
+    form .phone-group select {
+      width: 30%;
+    }
+    form .phone-group input {
+      width: 70%;
+    }
+    form button {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #218838;
+    }
+    .fullscreen-image {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+    .fullscreen-image img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .fullscreen-image button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #ffc107;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
   <script>
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.addEventListener('keydown', event => {
-      if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && ['I','J','C'].includes(event.key))) {
-        event.preventDefault();
-      }
-    });
+    function showImage() {
+      document.querySelector('.fullscreen-image').style.display = 'flex';
+    }
+    function hideImage() {
+      document.querySelector('.fullscreen-image').style.display = 'none';
+    }
   </script>
 </head>
 <body>
+  <div class="fullscreen-image">
+    <img src="https://raw.githubusercontent.com/anukalpthakur/portfolio-assests/main/myimg.jpg" alt="Anukalp Full Image">
+    <button onclick="hideImage()">Back</button>
+  </div>
   <header>
-    <img src="https://raw.githubusercontent.com/anukalpthakur/portfolio-assests/main/myimg.jpg" alt="Anukalp Profile">
+    <img src="https://raw.githubusercontent.com/anukalpthakur/portfolio-assests/main/myimg.jpg" alt="Anukalp Profile" onclick="showImage()">
     <h1>Anukalp Kumar Thakur</h1>
     <p>Full-Stack Developer | AI Enthusiast</p>
     <div class="nav-buttons">
@@ -243,8 +292,38 @@
     </div>
   </section>
 
+  <section id="contact-form">
+    <h2>Want Me to Contact You?</h2>
+    <form action="https://formsubmit.co/thakuranukalp848@outlook.com" method="POST">
+      <input type="text" name="Name" placeholder="Your Name" required>
+      <input type="email" name="Email" placeholder="Your Email" required>
+      <div class="phone-group">
+        <select name="CountryCode" required>
+          <option value="+91" selected>+91 (India)</option>
+          <option value="+1">+1 (USA)</option>
+          <option value="+44">+44 (UK)</option>
+          <option value="+61">+61 (Australia)</option>
+        </select>
+        <input type="number" name="WhatsApp" placeholder="WhatsApp Number" required>
+      </div>
+      <input type="hidden" name="_subject" value="New Contact Request!">
+      <input type="hidden" name="_captcha" value="false">
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
   <footer>
     &copy; 2025 Anukalp Kumar Thakur | Made with 💙 By Anukalp
   </footer>
+<script>
+  document.querySelector("form").addEventListener("submit", function (e) {
+    alert("✅ Thank you! We will contact you soon.");
+    // Clear form after small delay to ensure formsubmit.co works
+    setTimeout(() => {
+      this.reset(); // clear all input fields
+    }, 100);
+  });
+</script>
+
 </body>
 </html>
