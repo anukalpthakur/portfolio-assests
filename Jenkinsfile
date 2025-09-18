@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'yourdockerhubusername/portfolio-assets'
+        DOCKER_IMAGE = "anukalpthakur/portfolio-site"
+        DOCKERHUB_CREDENTIALS = 'dockerhub'
     }
 
     stages {
@@ -15,18 +16,33 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("${IMAGE_NAME}:latest")
+                    sh "docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} ."
+                    sh "docker tag ${DOCKER_IMAGE}:${BUILD_NUMBER} ${DOCKER_IMAGE}:latest"
                 }
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Push to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
-                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                        sh "docker push ${IMAGE_NAME}:latest"
+                        sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                        sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                        sh "docker push ${DOCKER_IMAGE}:latest"
                     }
+                }
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                script {
+                    // stop old container if running
+                    sh "docker stop portfolio || true"
+                    sh "docker rm portfolio || true"
+
+                    // run new container with latest image
+                    sh "docker run -d -p 8081:80 --name portfolio ${DOCKER_IMAGE}:latest"
                 }
             }
         }
