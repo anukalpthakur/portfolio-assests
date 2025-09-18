@@ -16,14 +16,14 @@ pipeline {
 
         stage('Debug Workspace') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
+                bat 'cd'
+                bat 'dir'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKERHUB_USER/$IMAGE_NAME:latest .'
+                bat 'docker build -t %DOCKERHUB_USER%/%IMAGE_NAME%:latest .'
             }
         }
 
@@ -34,14 +34,22 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
                 }
             }
         }
 
         stage('Push to DockerHub') {
             steps {
-                sh 'docker push $DOCKERHUB_USER/$IMAGE_NAME:latest'
+                bat 'docker push %DOCKERHUB_USER%/%IMAGE_NAME%:latest'
+            }
+        }
+
+        stage('Run Container Locally') {
+            steps {
+                bat 'docker stop portfolio || exit 0'
+                bat 'docker rm portfolio || exit 0'
+                bat 'docker run -d --name portfolio -p 9090:80 %DOCKERHUB_USER%/%IMAGE_NAME%:latest'
             }
         }
     }
