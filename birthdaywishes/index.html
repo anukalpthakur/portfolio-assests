@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday! 🎂</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      /* A nice, soft gradient background */
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; /* Keeps confetti from creating scrollbars */
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* The main content card */
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 40px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      color: #ff6b81;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      transition: all 0.5s ease;
+    }
+
+    p {
+      color: #555;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      display: none; /* Hidden until button is clicked */
+    }
+
+    button {
+      background-color: #ff6b81;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #ff4757;
+      transform: scale(1.05);
+    }
+
+    /* Class added via JavaScript to animate the text in */
+    .visible {
+      display: block;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive tweaks for smaller screens */
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+      .card { padding: 30px 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1 id="title">🎉 I have a surprise... 🎉</h1>
+    
+    <p id="message">
+      Happy Birthday! 🎂 Wishing you a day filled with joy, laughter, and lots of cake. <br><br>
+      <em>"Baki aayega thori der me"</em> is finally here! 🥳
+    </p>
+    
+    <button id="actionBtn">Tap to Open</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <script>
+    const btn = document.getElementById('actionBtn');
+    const message = document.getElementById('message');
+    const title = document.getElementById('title');
+
+    btn.addEventListener('click', () => {
+      // 1. Reveal the hidden message
+      message.classList.add('visible');
+      
+      // 2. Change the title text
+      title.innerText = "Happy Birthday! 🎊";
+      
+      // 3. Hide the button so they can read the message
+      btn.style.display = 'none'; 
+
+      // 4. Trigger the confetti fireworks!
+      let duration = 3 * 1000; // Confetti lasts for 3 seconds
+      let end = Date.now() + duration;
+
+      (function frame() {
+        // Fire from left edge
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#ff9a9e', '#fecfef', '#ff6b81']
+        });
+        // Fire from right edge
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#ff9a9e', '#fecfef', '#ff6b81']
+        });
+
+        // Keep going until the time is up
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    });
+  </script>
+</body>
+</html>
